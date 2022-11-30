@@ -31,6 +31,6 @@ jobs:
         uses: 'google-github-actions/auth@v0.4.0'
         with:
           #token_format: 'access_token'
-          token_format: 'id_token'
+          #token_format: 'id_token'
           workload_identity_provider: 'projects/894889467350/locations/global/workloadIdentityPools/test-pool/providers/test-provider'
           service_account: 'test-wif@rishabhterraformplayground.iam.gserviceaccount.com'
