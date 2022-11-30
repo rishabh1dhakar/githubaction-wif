@@ -24,16 +24,18 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider: 'projects/894889467350/locations/global/workloadIdentityPools/test-pool/providers/test-provider'
+        service_account: 'test-wif@rishabhterraformplayground.iam.gserviceaccount.com'
 
-      - name: Google Auth
-        id: auth
-        uses: 'google-github-actions/auth@v0'
-        with:
-          workload_identity_provider: 'projects/894889467350/locations/global/workloadIdentityPools/test-pool/providers/test-provider' # e.g. - projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider
-          service_account: 'test-wif@rishabhterraformplayground.iam.gserviceaccount.com' # e.g. - my-service-account@my-project.iam.gserviceaccount.com
-
+    - name: 'Access secret'
+      run: |-
+        curl https://secretmanager.googleapis.com/v1/projects/rishabhterraformplayground/secrets/my-secret/versions/1:access \
+          --header "Authorization: Bearer ${{ steps.auth.outputs.access_token }}"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
