@@ -13,26 +13,27 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  deploy:
+    # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
       contents: 'read'
       id-token: 'write'
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
+    runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
-
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v0.4.0'
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v0'
         with:
-          #token_format: 'access_token'
-          token_format: 'id_token'
-          workload_identity_provider: 'projects/894889467350/locations/global/workloadIdentityPools/test-pool/providers/test-provider'
-          service_account: 'test-wif@rishabhterraformplayground.iam.gserviceaccount.com'
+          workload_identity_provider: 'projects/894889467350/locations/global/workloadIdentityPools/test-pool/providers/test-provider' # e.g. - projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider
+          service_account: 'test-wif@rishabhterraformplayground.iam.gserviceaccount.com' # e.g. - my-service-account@my-project.iam.gserviceaccount.com
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
