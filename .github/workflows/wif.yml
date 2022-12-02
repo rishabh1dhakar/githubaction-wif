@@ -35,7 +35,7 @@ jobs:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
     - name: Test gcloud 
-      id: 'Test gcp'
+      id: 'test-gcp'
       run: |-
         gcloud projects list
 
