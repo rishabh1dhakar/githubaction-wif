@@ -37,5 +37,5 @@ jobs:
     - name: Test gcloud 
       id: 'test-gcp'
       run: |-
-        gcloud projects list
+        gcloud compute instances list
 
