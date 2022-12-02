@@ -39,5 +39,5 @@ jobs:
       env: 
         CLOUDSDK_AUTH_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
       run: |-
-        gcloud compute instances list
+        gcloud projects list
 
