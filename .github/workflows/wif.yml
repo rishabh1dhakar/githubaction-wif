@@ -36,6 +36,8 @@ jobs:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
     - name: Test gcloud 
       id: 'test-gcp'
+      env: 
+        CLOUDSDK_AUTH_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
       run: |-
         gcloud compute instances list
 
